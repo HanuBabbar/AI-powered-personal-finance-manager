@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome - AI Finance Manager</title>
+    <!-- Google Fonts for Modern Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar glass-panel">
+            <div class="logo">
+                <div class="logo-icon">W</div>
+                <h1>Welcome</h1>
+            </div>
+            <nav>
+                <a href="#" class="nav-item active">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                    Dashboard
+                </a>
+                <a href="#transactions-section" class="nav-item">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                    Transactions
+                </a>
+                <a href="#ai-advisor-section" class="nav-item">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10 10 10 0 0 0-10-10Zm0 16a6 6 0 1 1 6-6 6 6 0 0 1-6 6Z"></path><path d="M12 8v4l3 3"></path></svg>
+                    AI Advisor
+                </a>
+            </nav>
+            <div class="user-profile">
+                <div class="avatar">U</div>
+                <div>
+                    <p class="user-name" id="display-name">Loading...</p>
+                    <a href="#" style="font-size: 0.8rem; color: var(--danger); text-decoration: none;" onclick="logout()">Logout</a>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header>
+                <h2>Overview</h2>
+                <div class="header-actions">
+                    <button class="btn btn-primary" onclick="openModal()">+ Add Transaction</button>
+                </div>
+            </header>
+
+            <!-- Summary Cards -->
+            <section class="summary-cards">
+                <div class="card glass-panel gradient-border">
+                    <h3>Total Balance</h3>
+                    <p class="amount" id="total-balance">$0.00</p>
+                </div>
+                <div class="card glass-panel text-success">
+                    <h3>Income</h3>
+                    <p class="amount" id="total-income">+$0.00</p>
+                </div>
+                <div class="card glass-panel text-danger">
+                    <h3>Expenses</h3>
+                    <p class="amount" id="total-expenses">-$0.00</p>
+                </div>
+            </section>
+
+            <div class="dashboard-grid">
+                <!-- Transactions List -->
+                <section class="transactions glass-panel" id="transactions-section">
+                    <h3>Recent Transactions</h3>
+                    <div class="transaction-list" id="transaction-list">
+                        <p class="empty-state">No transactions yet. Add some!</p>
+                    </div>
+                </section>
+
+                <!-- AI Advisor Section -->
+                <section class="ai-advisor glass-panel ai-gradient" id="ai-advisor-section">
+                    <div class="ai-header">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" class="ai-icon" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm0 14a4 4 0 1 1 4-4 4 4 0 0 1-4 4Z"></path></svg>
+                        <h3>AI Financial Advisor</h3>
+                    </div>
+                    <p>Get personalized budgeting advice based on your current balance.</p>
+                    <button class="btn btn-secondary mt-3" id="get-advice-btn" onclick="getAIAdvice()">Generate Insights</button>
+                    
+                    <div id="ai-response-container" class="ai-response hidden">
+                        <!-- AI content will be injected here -->
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add Transaction Modal -->
+    <div class="modal-overlay hidden" id="transaction-modal">
+        <div class="modal glass-panel">
+            <div class="modal-header">
+                <h3>Add New Transaction</h3>
+                <button class="close-btn" onclick="closeModal()">×</button>
+            </div>
+            <form id="transaction-form" onsubmit="addTransaction(event)">
+                <div class="form-group">
+                    <label>Type</label>
+                    <select id="type" required>
+                        <option value="income">Income</option>
+                        <option value="expense">Expense</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Amount ($)</label>
+                    <input type="number" id="amount" step="0.01" min="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <input type="text" id="category" placeholder="E.g., Groceries, Salary, Rent" required>
+                </div>
+                <div class="form-group">
+                    <label>Description (Optional)</label>
+                    <input type="text" id="description" placeholder="Notes...">
+                </div>
+                <div class="form-group">
+                    <label>Date</label>
+                    <input type="date" id="date" required>
+                </div>
+                <button type="submit" class="btn btn-primary full-width">Save Transaction</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
